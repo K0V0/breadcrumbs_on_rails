@@ -88,7 +88,14 @@ module BreadcrumbsOnRails
         if element.path == nil
           content = compute_name(element)
         else
-          content = @context.link_to_unless_current(compute_name(element), compute_path(element), element.options)
+          inner_content = @context.content_tag(@options[:inner_tag], compute_name(element))
+          kokotiny = [ compute_name(element), compute_path(element), element.options ]
+          if @options[:inner_tag]
+            kokotiny.shift
+            content = @options[:include_current] ? @context.link_to(*kokotiny) { inner_content } : @context.link_to_unless_current(*kokotiny) { inner_content }
+          else
+            content = @options[:include_current] ? @context.link_to(*kokotiny) : @context.link_to_unless_current(*kokotiny)
+          end
         end
         if @options[:tag]
           @context.content_tag(@options[:tag], content)

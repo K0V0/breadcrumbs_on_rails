@@ -1,3 +1,15 @@
+## Added
+
+options for adding inner wrap tag (inside <a>) and active link for current page
+
+example:
+
+```html
+<body>
+    <%= render_breadcrumbs :tag => :li, :separator => "", include_current: true, inner_tag: :span %>
+</body>
+```
+
 # Breadcrumbs On Rails
 
 <tt>BreadcrumbsOnRails</tt> is a simple Ruby on Rails plugin for creating and managing a breadcrumb navigation for a Rails project. It provides helpers for creating navigation elements with a flexible interface.
@@ -136,17 +148,17 @@ If the value is a `Symbol`, the library calls the corresponding method defined i
 
 ```ruby
 class MyController
-  
+
   # The Name is set to the value returned by
   # the :root_name method.
   add_breadcrumb :root_name, "/"
-  
+
   protected
-  
+
     def root_name
       "the name"
     end
-  
+
 end
 ```
 
@@ -193,7 +205,7 @@ end
 
 class ApplicationController < ActionController::Base
   add_breadcrumb "admin", :admin_path, :if => :admin_controller?
-  
+
   def admin_controller?
     self.class.name =~ /^Admin(::|Controller)/
   end
